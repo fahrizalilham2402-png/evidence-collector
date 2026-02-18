@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Daftar Akun - Evidence Collector</title>
+  <style>
+    body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Ganti 'background-telkom.jpg' dengan nama file gedung Telkom Anda */
+  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), 
+              url('/gedung-telkom.png'); 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+    .card{background:white;padding:28px;border-radius:12px;max-width:400px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
+    h2{margin:0 0 12px;color:#DC2626;text-align:center}
+    label{display:block;margin-top:10px;font-weight:600}
+    input{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:8px;margin-top:6px;box-sizing:border-box}
+    .btn{width:100%;padding:12px;border-radius:8px;border:none;cursor:pointer;font-weight:700;margin-top:20px}
+    .btn-primary{background:#DC2626;color:white}
+    .muted{color:#6b7280;font-size:0.9em;margin-top:15px;text-align:center}
+    .link{color:#DC2626;text-decoration:none;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Daftar Akun Baru</h2>
+
+    <label for="username">Username</label>
+    <input id="username" placeholder="Masukkan username">
+
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Masukkan password">
+
+    <button id="btnRegister" class="btn btn-primary">Daftar Sekarang</button>
+
+    <div class="muted">
+      Sudah punya akun? <a href="login.html" class="link">Masuk di sini</a>
+    </div>
+  </div>
+
+  <script>
+    function setMessage(text, isError){
+      const el = document.getElementById('message');
+      el.textContent = text;
+      el.style.color = isError ? '#b91c1c' : '';
+    }
+
+    document.getElementById('btnRegister').addEventListener('click', async () => {
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value;
+
+      if(!u || !p){ setMessage('Username dan Password wajib diisi!', true); return; }
+
+      try {
+        const response = await fetch('/register', { // Gunakan path relatif '/' saja
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: u, password: p })
+});
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert('Pendaftaran berhasil! Silakan login.');
+          window.location.href = 'login.html';
+        } else {
+          setMessage(data.message || 'Pendaftaran gagal', true);
+        }
+      } catch (err) {
+        setMessage('Gagal terhubung ke server', true);
+      }
+    });
+  </script>
+</body>
+</html>

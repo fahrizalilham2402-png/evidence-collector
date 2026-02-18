@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login - Evidence Collector</title>
+  <style>
+    body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Ganti 'background-telkom.jpg' dengan nama file gedung Telkom*/
+  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), 
+              url('/gedung-telkom.png'); 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+    .card{background:white;padding:28px;border-radius:12px;max-width:420px;width:100%;box-shadow:0 10px 30px rgba(2,6,23,0.08)}
+    h2{margin:0 0 12px;color:#d70f0f}
+    label{display:block;margin-top:10px;font-weight:600}
+    input{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:8px;margin-top:6px}
+    .row{display:flex;gap:10px;margin-top:18px}
+    .btn{flex:1;padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:#e22c2c;color:white}
+    .btn-secondary{background:#e5e7eb}
+    .muted{color:#6b7280;font-size:0.9em;margin-top:10px}
+    .link{color:#c20707;cursor:pointer;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Masuk</h2>
+    <div id="message" style="margin-bottom: 10px; font-size: 0.9em; font-weight: bold;"></div>
+    <label for="username">Username</label>
+    <input id="username" autocomplete="username">
+
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password">
+
+    <div class="row">
+      <button id="btnLogin" class="btn btn-primary">Masuk</button>
+      <button id="btnRegister" class="btn btn-secondary" onclick="window.location.href='register.html'">Buat Akun</button>
+    </div>
+
+    <div style="margin-top:12px;" id="accountInfo"></div>
+  </div>
+
+  <script>
+    // Multi-account storage: store all accounts in localStorage under 'wpa_accounts' as object
+    const accountsKey = 'wpa_accounts';
+
+    function setMessage(text, isError){
+      const el = document.getElementById('message');
+      el.textContent = text;
+      el.style.color = isError ? '#b91c1c' : '';
+    }
+
+    async function sha256(str){
+      const enc = new TextEncoder();
+      const buf = await crypto.subtle.digest('SHA-256', enc.encode(str));
+      return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    }
+
+    // Get all accounts object
+    function getAllAccounts(){
+      try{ const s = localStorage.getItem(accountsKey); return s? JSON.parse(s): {} }catch(e){return {}}
+    }
+
+    // Get specific account by username
+    function getAccount(username){
+      const accounts = getAllAccounts();
+      return accounts[username] || null;
+    }
+
+    // Check if username exists
+    function accountExists(username){
+      return getAccount(username) !== null;
+    }
+
+    // Save account (add or update)
+    function saveAccount(username, obj){
+      const accounts = getAllAccounts();
+      accounts[username] = obj;
+      localStorage.setItem(accountsKey, JSON.stringify(accounts));
+    }
+
+    document.getElementById('btnRegister').addEventListener('click', async ()=>{
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value;
+      if(!u || !p){ setMessage('Isi username & password untuk membuat akun', true); return; }
+      if(accountExists(u)){ setMessage('Username sudah digunakan. Silakan gunakan username lain.', true); return; }
+      const h = await sha256(p);
+      saveAccount(u, { username: u, passwordHash: h });
+      setMessage('Akun dibuat. Silakan klik Masuk.', false);
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+    });
+
+    document.getElementById('btnLogin').addEventListener('click', async () => {
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value;
+  const msgEl = document.getElementById('message'); // Ambil elemen pesan
+  
+  if (!u || !p) { 
+    msgEl.textContent = 'Isi username & password';
+    msgEl.style.color = '#b91c1c'; // Warna merah
+    return; 
+  }
+
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: u, password: p })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      sessionStorage.setItem('authUser', JSON.stringify({ username: u }));
+      window.location.href = './index-final.html';
+    } else {
+      // Tampilkan pesan error "Username atau password salah" dari server
+      msgEl.textContent = data.message;
+      msgEl.style.color = '#b91c1c';
+      
+      // Opsional: Berikan efek getar atau highlight merah pada input
+      document.getElementById('password').style.borderColor = '#b91c1c';
+    }
+  } catch (err) {
+    msgEl.textContent = 'Gagal terhubung ke server';
+    msgEl.style.color = '#b91c1c';
+  }
+});
+
+    // Show helper text on load
+    (function init(){
+      const accounts = getAllAccounts();
+      const hasAccounts = Object.keys(accounts).length > 0;
+      if(!hasAccounts) setMessage('Jika belum memiliki akun — klik "Buat Akun" untuk membuatnya.', false);
+    })();
+  </script>
+</body>
+</html>

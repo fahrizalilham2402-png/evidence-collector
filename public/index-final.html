@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evidence Collector Pro</title>
+
+  <div class="Telkom-header">
+    <img src="/TLK-08f588e1.png" alt="Logo Telkom" />
+    <span>Telkom Indonesia</span>
+  </div>
+
+<style>
+  /* Cari atau tambahkan bagian ini di dalam <style> */
+.Telkom-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    margin-bottom: 20px;
+}
+
+.Telkom-header img {
+    height: 45px; /* Sedikit lebih kecil agar elegan */
+    width: auto;
+    object-fit: contain;
+}
+
+
+.Telkom-header span {
+    font-size: 1.2em;      /* Ukuran sedikit diperbesar agar seimbang */
+    font-weight: 800;     /* Nilai 800 atau 'bold' untuk tulisan sangat tebal */
+    color: #1F2937;       /* Warna abu-abu gelap/hitam agar lebih kontras */
+    letter-spacing: 0.5px; /* Memberikan sedikit jarak antar huruf agar rapi */
+}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      
+      /* --- KODE BACKGROUND BARU --- */
+      background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                        url('/gedung-telkom.png'); /* Ganti dengan nama file foto Anda */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      /* ---------------------------- */
+      
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+/* Container utama untuk tombol */
+/* Container Utama agar tombol tidak mengumpul di tengah */
+.container {
+  max-width: 1200px; /* Sesuaikan dengan lebar layar dashboard */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsif otomatis */
+    gap: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.menu-button {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.menu-button:hover {
+    transform: translateY(-5px);
+    border-color: #DC2626; /* Merah Telkom */
+    box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.2);
+}
+
+.menu-title {
+    font-weight: 700;
+    color: #1F2937;
+    font-size: 1em;
+}
+
+.menu-text-wrapper {
+  display: flex;
+  justify-content: space-between; /* Judul kiri, Deskripsi kanan */
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.menu-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #1F2937;
+  white-space: nowrap; /* Teks tetap satu baris */
+}
+
+.menu-desc {
+  font-size: 0.85em;
+  color: #9CA3AF;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+/* Garis pembatas vertikal tipis */
+.menu-desc::before {
+  content: "|";
+  margin: 0 15px;
+  color: #E5E7EB;
+  font-weight: 100;
+}
+
+/* Agar saat di HP, tampilannya menjadi 1 kolom saja */
+    @media (max-width: 600px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    header {
+  background: rgba(255, 255, 255, 0.95); /* Putih sedikit transparan */
+  padding: 14px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 24px;
+  backdrop-filter: blur(5px); /* Efek blur kaca */
+}
+    header img {
+      height: 42px;
+    }
+
+    header span {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #1F2937;
+    }
+        /* ===== CONTAINER ===== */
+    container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ===== APP HEADER ===== */
+    App-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    header h1 {
+      font-size: 1.7em;
+      margin-bottom: 6px;
+      color: #1F2937
+    }
+
+    header p {
+      font-size: 0.95em;
+      color: #6B7280;
+    }
+
+    /* PAGE STYLES */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* LANDING PAGE */
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 22px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    
+    .menu-button {
+      width: 100%;
+      padding: 20px;
+      margin: 10px 0;
+      font-size: 1.2em;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-camera {
+      background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    }
+
+    .btn-camera:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    }
+
+    .btn-upload {
+      background: linear-gradient(135deg, #065F46 0%, #047857 100%);
+    }
+
+    .btn-upload:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(6, 95, 70, 0.4);
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-back {
+      background: #FFFFFF;
+      color: #1F2937;
+      border: 2px solid #E5E7EB;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background: #F3F4F6;
+      border-color: #DC2626;
+    }
+
+    .page-title {
+      font-size: 1.3em;
+      color: #333;
+      flex: 1;
+      margin: 0;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 8px;
+      display: none;
+      margin-bottom: 15px;
+    }
+
+    video.active {
+      display: block;
+    }
+
+    img.preview {
+      width: 100%;
+      max-height: 400px;
+      border-radius: 8px;
+      display: none;
+      margin: 15px 0;
+    }
+
+    img.preview.show {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 0.95em;
+    }
+
+    input[type="text"], textarea, input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #E5E7EB;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95em;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus, textarea:focus, input[type="file"]:focus {
+      outline: none;
+      border-color: #DC2626;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: #1F2937;
+      border: 2px solid #E5E7EB;
+      margin-top: 10px;
+    }
+
+    .btn-secondary:hover {
+      background: #F3F4F6;
+      border-color: #DC2626;
+    }
+
+    .upload-area {
+      border: 3px dashed #DC2626;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      background: #FEF2F2;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .upload-area:hover {
+      border-color: #B91C1C;
+      background: #FEE2E2;
+    }
+
+    .upload-area.active {
+      border-color: #065F46;
+      background: #ECFDF5;
+    }
+
+    .upload-icon {
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .status-box {
+      background: #ECFDF5;
+      border-left: 4px solid #065F46;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      display: none;
+      font-size: 0.95em;
+    }
+
+    .status-box.show {
+      display: block;
+    }
+
+    .status-box.success {
+      background: #DCFCE7;
+      border-left-color: #065F46;
+      color: #166534;
+    }
+
+    .status-box.error {
+      background: #FEE2E2;
+      border-left-color: #DC2626;
+      color: #7F1D1D;
+    }
+
+    .status-box.info {
+      background: #F3F4F6;
+      border-left-color: #1F2937;
+      color: #111827;
+    }
+
+    #notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 24px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 500; /* Ubah ke 500 agar lebih enak dibaca */
+  font-family: 'Courier New', monospace; /* Gunakan font terminal */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  max-width: 450px; /* Perlebar sedikit */
+  white-space: pre-wrap; /* PENTING: Agar baris baru (\n) berfungsi */
+  display: none;
+  line-height: 1.4;
+  font-size: 0.85em;
+}
+#notification {
+  /* ... style lainnya ... */
+  white-space: pre-wrap; /* Penting agar baris baru muncul di pop-up */
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+    #notification.show {
+      display: block;
+    }
+
+    #notification.success {
+      background: linear-gradient(135deg, #065F46 0%, #047857 100%);
+    }
+
+    #notification.error {
+      background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    }
+
+    #notification.info {
+      background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .button-group .btn {
+      flex: 1;
+      margin-top: 0;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.9em;
+    }
+
+    .info-table th, .info-table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .info-table th {
+      background: #ECFDF5;
+      font-weight: 600;
+      color: #065F46;
+    }
+
+    #input-photo {
+      display: none;
+    }
+
+    .evidence-type-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 8px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.95em;
+      color: #1F2937;
+    }
+
+    .radio-label input[type="radio"] {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      accent-color: #DC2626;
+    }
+
+    .radio-label:hover {
+      color: #DC2626;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(400px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5em;
+      }
+
+      .container {
+        max-width: 100%;
+      }
+
+      #notification {
+        max-width: 90%;
+        right: 10px;
+        left: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header style="display:flex;align-items:center;gap:12px;">
+    <h1>  Evidence Collector</h1>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+      <span id="currentUser" style="font-weight:600;color:#065F46"></span>
+      <button id="btnLogout" class="btn btn-secondary" style="display:none;padding:8px 10px;">Logout</button>
+    </div>
+  </header>
+
+
+
+  <!-- LANDING PAGE -->
+<div id="landingPage" class="page">
+
+  <div class="menu-grid">
+    <div class="menu-button" onclick="goToCamera()">
+      <div class="menu-icon"></div>
+      <div class="menu-text-wrapper">
+        <span class="menu-title">Ambil Foto</span>
+      </div>
+    </div>
+
+    <div class="menu-button" onclick="goToUpload()">
+      <div class="menu-icon"></div>
+      <div class="menu-text-wrapper">
+        <span class="menu-title">Input Foto</span>
+      </div>
+    </div>
+
+    <div class="menu-button" onclick="goToKML()">
+      <div class="menu-icon"></div>
+      <div class="menu-text-wrapper">
+        <span class="menu-title">Kelola KML</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAMERA PAGE -->
+  <div id="cameraPage" class="page">
+    <div class="page-header">
+      <button class="btn-back" onclick="backToHome()">← Kembali</button>
+      <h2 class="page-title">Kamera</h2>
+    </div>
+
+    <div class="card">
+      <video id="video" autoplay playsinline></video>
+      
+      <div id="previewSection" style="display: none;">
+        <img id="capturedImage" class="preview show">
+        
+        <div style="background: #ECFDF5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+          <table class="info-table">
+            <tr>
+              <th>Informasi</th>
+              <th>Nilai</th>
+            </tr>
+            <tr>
+              <td>Latitude (D)</td>
+              <td id="gpsLatDecimal">-</td>
+            </tr>
+            <tr>
+              <td>Latitude (DMS)</td>
+              <td id="gpsLatDMS">-</td>
+            </tr>
+            <tr>
+              <td>Longitude (D)</td>
+              <td id="gpsLonDecimal">-</td>
+            </tr>
+            <tr>
+              <td>Longitude (DMS)</td>
+              <td id="gpsLonDMS">-</td>
+            </tr>
+            <tr>
+              <td>Waktu Capture</td>
+              <td id="captureTime">-</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="form-group">
+          <label for="evidence-type-camera">Tipe Evidence:</label>
+          <div class="evidence-type-group">
+            <label class="radio-label" for="radio-tiang-camera">
+              <input type="radio" id="radio-tiang-camera" name="evidence-type-camera" value="Tiang" onchange="updateEvidenceType('camera')"> Tiang
+            </label>
+            <label class="radio-label" for="radio-odp-camera">
+              <input type="radio" id="radio-odp-camera" name="evidence-type-camera" value="ODP" onchange="updateEvidenceType('camera')"> ODP
+            </label>
+            <label class="radio-label" for="radio-odc-camera">
+              <input type="radio" id="radio-odc-camera" name="evidence-type-camera" value="ODC" onchange="updateEvidenceType('camera')"> ODC
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Keterangan Evidence:</label>
+          <textarea id="desc-camera" placeholder="Jelaskan detail evidence..."></textarea>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-primary" onclick="confirmAndUploadCamera()">✅ Gunakan</button>
+          <button class="btn btn-secondary" onclick="retakePhoto()">🔄 Ambil Ulang</button>
+        </div>
+      </div>
+
+      <div id="cameraControls">
+        <button class="btn btn-primary" id="btnStartCamera" onclick="startCamera()">🔓 Buka Kamera</button>
+        <button class="btn btn-secondary" id="btnCapture" onclick="capturePhoto()" style="display: none;">📸 Ambil Foto</button>
+        <button class="btn btn-secondary" id="btnStopCamera" onclick="stopCamera()" style="display: none;">❌ Tutup Kamera</button>
+      </div>
+
+      <div id="statusCamera" class="status-box"></div>
+    </div>
+  </div>
+
+  <!-- UPLOAD PAGE -->
+  <div id="uploadPage" class="page">
+    <div class="page-header">
+      <button class="btn-back" onclick="backToHome()">← Kembali</button>
+      <h2 class="page-title">Input Foto</h2>
+    </div>
+
+    <div class="card">
+      <div class="upload-area" onclick="document.getElementById('input-photo').click()">
+        <div class="upload-icon">🖼️</div>
+        <div style="color: #DC2626; font-weight: 600;">Klik untuk upload atau drag & drop</div>
+        <div style="color: #6B7280; font-size: 0.9em;">Format: JPG, PNG (Max 5MB)</div>
+      </div>
+
+      <img id="previewFile" class="preview">
+
+      <div class="form-group">
+        <label for="evidence-type-file">Tipe Evidence:</label>
+        <div class="evidence-type-group">
+          <label class="radio-label" for="radio-tiang-file">
+            <input type="radio" id="radio-tiang-file" name="evidence-type-file" value="Tiang" onchange="updateEvidenceType('file')"> Tiang
+          </label>
+          <label class="radio-label" for="radio-odp-file">
+            <input type="radio" id="radio-odp-file" name="evidence-type-file" value="ODP" onchange="updateEvidenceType('file')"> ODP
+          </label>
+          <label class="radio-label" for="radio-odc-file">
+            <input type="radio" id="radio-odc-file" name="evidence-type-file" value="ODC" onchange="updateEvidenceType('file')"> ODC
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Keterangan Evidence:</label>
+        <textarea id="desc-file" placeholder="Jelaskan detail evidence..."></textarea>
+      </div>
+
+      <button class="btn btn-primary" id="btnUploadFile" onclick="uploadFile()" disabled>
+        Upload
+      </button>
+
+      <div id="statusFile" class="status-box"></div>
+    </div>
+  </div>
+
+  <!-- KML PAGE -->
+  <div id="kmlPage" class="page">
+    <div class="page-header">
+      <button class="btn-back" onclick="backToHome()">← Kembali</button>
+      <h2 class="page-title">Kelola KML</h2>
+    </div>
+
+    <div class="card">
+      <h3 style="color: #065F46; margin-bottom: 20px;">Daftar File KML Anda</h3>
+      
+      <div id="kmlList" style="max-height: 300px; overflow-y: auto; background: #F3F4F6; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <p style="color: #6B7280; text-align: center;">Loading...</p>
+      </div>
+
+      <div class="form-group">
+        <label>Upload KML Baru:</label>
+        <input type="file" id="kml-file" accept=".kml" style="padding: 10px; cursor: pointer;">
+      </div>
+
+      <button class="btn btn-primary" onclick="uploadKML()">
+        Upload KML
+      </button>
+
+      <div id="statusKML" class="status-box"></div>
+    </div>
+  </div>
+</div>
+
+<div id="notification"></div>
+<input type="file" id="input-photo" accept="image/*">
+
+<script>
+
+
+// Global error handlers
+  window.onerror = function(msg, url, lineNo, columnNo, error) {
+    console.error('❌ GLOBAL ERROR CAUGHT:', msg, 'Line:', lineNo, 'Column:', columnNo);
+    if (error) console.error('Error object:', error.stack);
+    return false;
+  };
+
+  window.onunhandledrejection = function(event) {
+    console.error('❌ UNHANDLED REJECTION:', event.reason);
+    event.preventDefault();
+  };
+
+  // ========== AUTHENTICATION CHECK ==========
+  function isAuthPage() {
+    return location.pathname.endsWith('/login.html') || location.pathname.endsWith('/login');
+  }
+
+  function isAuthenticated() {
+    try { return !!sessionStorage.getItem('authUser'); } catch(e) { return false; }
+  }
+
+  function logout() {
+    try { sessionStorage.removeItem('authUser'); } catch(e){}
+    window.location.href = './login.html';
+  }
+
+  // quick helper to display user in header
+  function updateHeaderUser() {
+    const el = document.getElementById('currentUser');
+    const btn = document.getElementById('btnLogout');
+    if (!el || !btn) return;
+    try {
+      const u = sessionStorage.getItem('authUser');
+      if (u) {
+        const obj = JSON.parse(u);
+        el.textContent = obj.username || '';
+        btn.style.display = 'inline-block';
+        btn.onclick = logout;
+      } else {
+        el.textContent = '';
+        btn.style.display = 'none';
+      }
+    } catch(e) { console.warn('Auth header update failed', e); }
+  }
+
+  // If not on login page and not authenticated, redirect to login page
+  if (!isAuthPage() && !isAuthenticated()) {
+    window.location.href = './login.html';
+  } else {
+    // update header (if present)
+    updateHeaderUser();
+  }
+
+  let currentBlob = null;
+  let currentCoords = { lat: null, lon: null };
+  let currentTimestamp = null;
+  let videoStream = null;
+  let selectedEvidenceType = null; // Store selected evidence type
+  let currentFileData = null; // Store file upload data
+
+  // Check sessionStorage availability
+  let sessionStorageAvailable = false;
+  try {
+    sessionStorageAvailable = typeof(Storage) !== 'undefined' && typeof(sessionStorage) !== 'undefined';
+    if (sessionStorageAvailable) {
+      sessionStorage.setItem('test', 'test');
+      sessionStorage.removeItem('test');
+      console.log('✓ SessionStorage is available');
+    }
+  } catch(e) {
+    console.warn('⚠️ SessionStorage not available:', e);
+  }
+
+  // ========== STATE PERSISTENCE (Save/Restore Page State) ==========
+  function savePageState(pageId) {
+    if (sessionStorageAvailable) {
+      sessionStorage.setItem('currentPage', pageId);
+      console.log('💾 Saved page state:', pageId);
+    } else {
+      console.warn('⚠️ Cannot save state - sessionStorage unavailable');
+    }
+  }
+
+  function restorePageState() {
+    if (!sessionStorageAvailable) {
+      console.warn('⚠️ Cannot restore state - sessionStorage unavailable');
+      return false;
+    }
+    
+    const savedPage = sessionStorage.getItem('currentPage');
+    console.log('🔍 Checking saved page state:', savedPage);
+    
+    if (savedPage && document.getElementById(savedPage)) {
+      console.log('✓ Restoring to page:', savedPage);
+      showPage(savedPage);
+      return true;
+    }
+    
+    console.log('ℹ️ No saved state found');
+    return false;
+  }
+
+  // Initialize pages immediately (don't wait for DOMContentLoaded)
+  function initializePages() {
+    console.log('📄 Initializing pages...');
+    if (!restorePageState()) {
+      // If no saved state, show landing page
+      const landingPage = document.getElementById('landingPage');
+      if (landingPage) {
+        landingPage.classList.add('active');
+        console.log('✓ No saved state, showing landing page');
+      }
+    }
+  }
+
+  // Run initialization immediately if document is already loading
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePages);
+  } else {
+    // Document already loaded (e.g., script added dynamically)
+    initializePages();
+  }
+
+  // Monitor unexpected page changes
+  function monitorPageChanges() {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach(mutation => {
+          if (mutation.attributeName === 'class') {
+            const pageId = page.id;
+            const isActive = page.classList.contains('active');
+            const timestamp = new Date().toLocaleTimeString();
+            
+            if (isActive) {
+              console.log(`🟢 [${timestamp}] ✓ ACTIVE SET: ${pageId}`);
+              console.trace('🔍 Stack trace - who activated this page?');
+            } else {
+              console.log(`🔴 [${timestamp}] ✗ ACTIVE REMOVED: ${pageId}`);
+            }
+          }
+        });
+      });
+      observer.observe(page, { attributes: true, attributeFilter: ['class'] });
+    });
+    console.log('✓ Page change monitor ACTIVE - will trace all changes');
+  }
+
+  // Start monitoring after all elements are loaded
+  setTimeout(monitorPageChanges, 100);
+
+  // ========== PAGE NAVIGATION ==========
+  function showPage(pageId) {
+    const timestamp = new Date().toLocaleTimeString();
+    const stack = new Error().stack.split('\n')[2]; // Get caller info
+    console.log(`🔵 [${timestamp}] showPage('${pageId}') called from:`, stack);
+    
+    // Remove active from all pages
+    document.querySelectorAll('.page').forEach(page => {
+      page.classList.remove('active');
+    });
+    
+    // Add active to target page
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+      targetPage.classList.add('active');
+      savePageState(pageId); // Save state immediately
+      console.log(`✓ Page changed to: ${pageId}, saved to sessionStorage`);
+    } else {
+      console.error('❌ Page not found:', pageId);
+    }
+  }
+
+  function goToCamera() {
+    console.log('📷 goToCamera() triggered');
+    showPage('cameraPage');
+  }
+
+  function goToUpload() {
+    console.log('📤 goToUpload() triggered');
+    showPage('uploadPage');
+  }
+
+  function goToKML() {
+    console.log('🗺️ goToKML() triggered');
+    showPage('kmlPage');
+    loadKMLList();
+  }
+
+  // Helper to get current username from session
+  function getUsername() {
+    try {
+      const u = sessionStorage.getItem('authUser');
+      if (u) {
+        const obj = JSON.parse(u);
+        return obj.username || '';
+      }
+    } catch(e) {}
+    return '';
+  }
+
+  function backToHome() {
+    console.log('🏠 backToHome() called!');
+    console.log('⏹️ Stopping camera...');
+    stopCamera();
+    console.log('⏹️ Resetting forms...');
+    // DISABLED: These might trigger unwanted side effects
+    // resetCameraForm();
+    // resetUploadForm();
+    console.log('➡️ Switching to landingPage...');
+    showPage('landingPage');
+    console.log('✓ backToHome() completed');
+  }
+
+  function updateEvidenceType(source) {
+    const radioName = source === 'camera' ? 'evidence-type-camera' : 'evidence-type-file';
+    const selected = document.querySelector(`input[name="${radioName}"]:checked`);
+    selectedEvidenceType = selected ? selected.value : null;
+    console.log('✓ Evidence type selected:', selectedEvidenceType);
+  }
+
+  function resetCameraForm() {
+    document.getElementById('previewSection').style.display = 'none';
+    document.getElementById('cameraControls').style.display = 'block';
+    document.getElementById('btnStartCamera').style.display = 'block';
+    document.getElementById('btnCapture').style.display = 'none';
+    document.getElementById('btnStopCamera').style.display = 'none';
+    document.getElementById('desc-camera').value = '';
+    currentBlob = null;
+    currentCoords = { lat: null, lon: null };
+    
+    selectedEvidenceType = null;
+    document.querySelectorAll('input[name="evidence-type-camera"]').forEach(r => r.checked = false);
+
+    // Restore original buttons
+    const previewSection = document.getElementById('previewSection');
+    const oldButtons = previewSection.querySelector('.button-group');
+    if (oldButtons) oldButtons.remove();
+    
+    const newButtons = document.createElement('div');
+    newButtons.className = 'button-group';
+    newButtons.innerHTML = `
+      <button class="btn btn-primary" onclick="confirmAndUploadCamera()">✅ Gunakan</button>
+      <button class="btn btn-secondary" onclick="retakePhoto()">🔄 Ambil Ulang</button>
+    `;
+    previewSection.appendChild(newButtons);
+  }
+
+  function resetUploadForm() {
+    document.getElementById('previewFile').classList.remove('show');
+    document.getElementById('input-photo').value = '';
+    document.getElementById('desc-file').value = '';
+    document.getElementById('btnUploadFile').disabled = false;
+    document.getElementById('btnUploadFile').style.display = 'block';
+    document.getElementById('btnUploadFile').textContent = '📤 Upload & Proses OCR';
+  }
+
+  function resetUploadFormFull() {
+    resetUploadForm();
+    
+    // Remove all success elements
+    const cardElement = document.querySelector('#uploadPage .card');
+    
+    const successButtons = cardElement.querySelector('[id="successButtons"]');
+    if (successButtons) successButtons.remove();
+    
+    const successInfoCard = cardElement.querySelector('[id="successInfoCard"]');
+    if (successInfoCard) successInfoCard.remove();
+    
+    // Show upload elements again
+    const btnUploadFile = document.getElementById('btnUploadFile');
+    const inputPhoto = document.getElementById('input-photo');
+    const previewFile = document.getElementById('previewFile');
+    
+    if (btnUploadFile) btnUploadFile.style.display = 'block';
+    if (inputPhoto) inputPhoto.style.display = 'block';
+    if (previewFile) previewFile.style.display = 'none';
+    
+    // Reset status box
+    const statusFile = document.getElementById('statusFile');
+    statusFile.className = 'status-box';
+    statusFile.textContent = '📤 Upload file atau drag & drop foto';
+  }
+
+  // ========== UTILITY FUNCTIONS ==========
+  function showNotification(message, type = 'success', duration = 5000) {
+    const notifEl = document.getElementById('notification');
+    notifEl.textContent = message;
+    notifEl.className = `show ${type}`;
+    
+    setTimeout(() => {
+      notifEl.classList.remove('show');
+    }, duration);
+  }
+
+  function showStatus(element, message, type) {
+    const statusBox = document.getElementById(element);
+    statusBox.textContent = message;
+    statusBox.className = `status-box show ${type}`;
+  }
+
+  function convertDMS(decimal, isLatitude) {
+    const abs = Math.abs(decimal);
+    const degrees = Math.floor(abs);
+    const minutes = Math.floor((abs - degrees) * 60);
+    const seconds = (((abs - degrees) * 60 - minutes) * 60).toFixed(2);
+    
+    const direction = isLatitude 
+      ? (decimal >= 0 ? 'N' : 'S')
+      : (decimal >= 0 ? 'E' : 'W');
+    
+    return `${degrees}°${minutes}'${seconds}"${direction}`;
+  }
+
+
+
+  // ========== CAMERA FUNCTIONS ==========
+  async function startCamera() {
+    try {
+      const constraints = {
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      };
+      
+      videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+      const video = document.getElementById('video');
+      video.srcObject = videoStream;
+      video.classList.add('active');
+      
+      document.getElementById('btnStartCamera').style.display = 'none';
+      document.getElementById('btnCapture').style.display = 'block';
+      document.getElementById('btnStopCamera').style.display = 'block';
+      
+      showNotification('✅ Kamera dibuka', 'success');
+      showStatus('statusCamera', '🎥 Kamera aktif - Tekan "Ambil Foto"', 'info');
+    } catch (err) {
+      showNotification('❌ Error: ' + err.message, 'error');
+      showStatus('statusCamera', 'Error: ' + err.message, 'error');
+    }
+  }
+
+  function stopCamera() {
+    if (videoStream) {
+      videoStream.getTracks().forEach(track => track.stop());
+      videoStream = null;
+    }
+    const video = document.getElementById('video');
+    video.classList.remove('active');
+    video.srcObject = null;
+    
+    document.getElementById('btnStartCamera').style.display = 'block';
+    document.getElementById('btnCapture').style.display = 'none';
+    document.getElementById('btnStopCamera').style.display = 'none';
+  }
+
+  function capturePhoto() {
+    const video = document.getElementById('video');
+    const canvas = document.createElement('canvas');
+    
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.scale(-1, 1);
+    ctx.drawImage(video, -canvas.width, 0);
+    
+    currentTimestamp = new Date();
+    
+    // Ambil GPS
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        currentCoords.lat = position.coords.latitude;
+        currentCoords.lon = position.coords.longitude;
+        
+        // Gambar canvas dengan timestamp
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        tempCtx.drawImage(canvas, 0, 0);
+        
+        // Timestamp box (20% dari tinggi)
+        const infoHeight = Math.floor(canvas.height * 0.2);
+        const infoTop = canvas.height - infoHeight;
+        const padding = 15;
+        
+        // Background
+        tempCtx.fillStyle = "rgba(0, 0, 0, 0.85)";
+        tempCtx.fillRect(0, infoTop, canvas.width, infoHeight);
+        
+        // Border
+        tempCtx.strokeStyle = "white";
+        tempCtx.lineWidth = 5;
+        tempCtx.beginPath();
+        tempCtx.moveTo(0, infoTop);
+        tempCtx.lineTo(canvas.width, infoTop);
+        tempCtx.stroke();
+        
+        // Title
+        tempCtx.fillStyle = "white";
+        tempCtx.font = "bold 12px Courier New";
+        tempCtx.textAlign = "left";
+        const timestamp = currentTimestamp.toLocaleString("id-ID");
+        tempCtx.fillText("Timestamp: " + timestamp, padding, infoTop + 20);
+        
+        // Separator
+        tempCtx.strokeStyle = "white";
+        tempCtx.lineWidth = 1;
+        tempCtx.beginPath();
+        tempCtx.moveTo(padding, infoTop + 25);
+        tempCtx.lineTo(canvas.width - padding, infoTop + 25);
+        tempCtx.stroke();
+        
+        // Table 3x3
+        const tableTop = infoTop + 35;
+        const colWidth = (canvas.width - 2 * padding) / 3;
+        const rowHeight = (infoHeight - 45) / 3;
+        
+        const latDecimal = currentCoords.lat.toFixed(6);
+        const lonDecimal = currentCoords.lon.toFixed(6);
+        const latDMS = convertDMS(currentCoords.lat, true);
+        const lonDMS = convertDMS(currentCoords.lon, false);
+        
+        // Vertical lines
+        tempCtx.beginPath();
+        tempCtx.moveTo(padding + colWidth, tableTop);
+        tempCtx.lineTo(padding + colWidth, tableTop + 3 * rowHeight);
+        tempCtx.stroke();
+        
+        tempCtx.beginPath();
+        tempCtx.moveTo(padding + 2 * colWidth, tableTop);
+        tempCtx.lineTo(padding + 2 * colWidth, tableTop + 3 * rowHeight);
+        tempCtx.stroke();
+        
+        // Horizontal lines
+        tempCtx.beginPath();
+        tempCtx.moveTo(padding, tableTop + rowHeight);
+        tempCtx.lineTo(canvas.width - padding, tableTop + rowHeight);
+        tempCtx.stroke();
+        
+        tempCtx.beginPath();
+        tempCtx.moveTo(padding, tableTop + 2 * rowHeight);
+        tempCtx.lineTo(canvas.width - padding, tableTop + 2 * rowHeight);
+        tempCtx.stroke();
+        
+        // Header
+        tempCtx.fillStyle = "white";
+        tempCtx.font = "bold 10px Courier New";
+        tempCtx.textAlign = "center";
+        
+        tempCtx.fillText("Label", padding + colWidth/2, tableTop + rowHeight*0.6);
+        tempCtx.fillText("Decimal", padding + colWidth + colWidth/2, tableTop + rowHeight*0.6);
+        tempCtx.fillText("DMS", padding + 2*colWidth + colWidth/2, tableTop + rowHeight*0.6);
+        
+        // Data rows
+        tempCtx.font = "10px Courier New";
+        tempCtx.fillText("LAT", padding + colWidth/2, tableTop + rowHeight*1.6);
+        tempCtx.fillText(latDecimal, padding + colWidth + colWidth/2, tableTop + rowHeight*1.6);
+        tempCtx.fillText(latDMS, padding + 2*colWidth + colWidth/2, tableTop + rowHeight*1.6);
+        
+        tempCtx.fillText("LON", padding + colWidth/2, tableTop + rowHeight*2.6);
+        tempCtx.fillText(lonDecimal, padding + colWidth + colWidth/2, tableTop + rowHeight*2.6);
+        tempCtx.fillText(lonDMS, padding + 2*colWidth + colWidth/2, tableTop + rowHeight*2.6);
+        
+        // Save blob
+        tempCanvas.toBlob((blob) => {
+          currentBlob = blob;
+          
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            document.getElementById('capturedImage').src = e.target.result;
+            document.getElementById('previewSection').style.display = 'block';
+            document.getElementById('cameraControls').style.display = 'none';
+            
+            // Show GPS info
+            document.getElementById('gpsLatDecimal').textContent = latDecimal;
+            document.getElementById('gpsLatDMS').textContent = latDMS;
+            document.getElementById('gpsLonDecimal').textContent = lonDecimal;
+            document.getElementById('gpsLonDMS').textContent = lonDMS;
+            document.getElementById('captureTime').textContent = timestamp;
+            
+            // Stop camera
+            stopCamera();
+            
+            showNotification('✅ Foto berhasil diambil', 'success');
+            showStatus('statusCamera', '✅ Foto berhasil diambil dengan GPS', 'success');
+          };
+          reader.readAsDataURL(blob);
+        }, 'image/jpeg');
+      },
+      (error) => {
+        showNotification('⚠️ GPS tidak tersedia', 'error');
+        showStatus('statusCamera', 'GPS Error: ' + error.message, 'error');
+      }
+    );
+  }
+
+  function retakePhoto() {
+    resetCameraForm();
+    startCamera();
+  }
+
+async function confirmAndUploadCamera() {
+    console.log('🔴 [1] confirmAndUploadCamera called');
+    if (!currentBlob || !selectedEvidenceType) {
+        console.log('🔴 [2] Missing blob or evidence type, returning');
+        showNotification('❌ Foto atau Tipe Evidence belum lengkap!', 'error');
+        return;
+    }
+
+    console.log('🔴 [3] Preparing FormData');
+    console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+    
+    const fd = new FormData();
+    fd.append('photo', currentBlob, 'camera_evidence.jpg');
+    fd.append('latitude', currentCoords.lat);
+    fd.append('longitude', currentCoords.lon);
+    fd.append('evidenceType', selectedEvidenceType);
+    fd.append('description', document.getElementById('desc-camera').value);
+    fd.append('username', getUsername());
+
+    console.log('🔴 [4] FormData ready, showing status');
+    showStatus('statusCamera', '⏳ Menghubungkan ke server...', 'info');
+    
+    if (!selectedEvidenceType) {
+      console.log('🔴 [5] Evidence type check failed');
+      showNotification("❌ Pilih tipe evidence dulu (Tiang / ODP / ODC)", "error");
+      return;
+    }
+
+    console.log('🔴 [6] Starting fetch to /upload');
+    console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+    
+try {
+    const res = await fetch('/upload', {
+        method: 'POST', 
+        body: fd 
+    });
+    
+    console.log('🔴 [7] Fetch completed, parsing JSON');
+    console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+    
+    const data = await res.json();
+    
+    console.log('🔴 [8] Response data:', data);
+    console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+
+    if (data.status === 'OK') {
+        console.log('🔴 [9] Status OK, creating logBox');
+        console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+        
+        // 1. Munculkan Log Terminal di dalam Preview Section
+        let logBox = document.getElementById('terminal-result-camera');
+        if (!logBox) {
+            logBox = document.createElement('div');
+            logBox.id = 'terminal-result-camera';
+            document.querySelector('#previewSection').appendChild(logBox);
+        }
+        
+        logBox.style.cssText = `
+          background: #000;
+          color: #0f0;
+          padding: 15px;
+          border-radius: 8px;
+          font-family: 'Courier New', monospace;
+          font-size: 12px;
+          white-space: pre-wrap;
+          margin-top: 15px;
+          text-align: left;
+          border: 1px solid #333;
+          max-height: 300px;
+          overflow-y: auto;
+        `;
+        logBox.textContent = data.scan_details;
+
+        console.log('🔴 [10] Showing notification');
+        console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+        
+        // 2. Tampilkan Notifikasi Pop-up
+        showNotification(`✅ KML BERHASIL DIUPDATE!\n📍 Placemark: ${data.placemark}\n📄 KML: ${data.kml}`, 'success', 15000);
+
+        console.log('🔴 [11] Updating buttons');
+        console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+        
+        // 3. Ubah Tombol agar User Bisa Ambil Ulang atau Kembali
+        const previewSection = document.getElementById('previewSection');
+        const oldButtons = previewSection.querySelector('.button-group');
+        if (oldButtons) oldButtons.remove();
+        
+        const newButtons = document.createElement('div');
+        newButtons.className = 'button-group';
+        newButtons.innerHTML = `
+          <button class="btn btn-secondary" onclick="retakePhoto()">🔄 Ambil Ulang</button>
+          <button class="btn btn-secondary" onclick="backToHome()">🏠 Kembali ke Menu</button>
+        `;
+        previewSection.appendChild(newButtons);
+
+        console.log('🔴 [12] Scroll to logBox');
+        console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+        
+        logBox.scrollIntoView({ behavior: 'smooth' });
+        
+        console.log('🔴 [12.5] About to end function - checking for unexpected code...');
+        console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+    } else {
+        console.log('🔴 [13] Status NOT OK:', data);
+        console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+        
+        // Handle error response dari server
+        showNotification(`⚠️ Gagal: ${data.error || data.message}`, 'error');
+        showStatus('statusCamera', `❌ Error: ${data.error || 'Tidak diketahui'}`, 'error');
+        
+        // Buat tombol untuk retry atau kembali
+        const previewSection = document.getElementById('previewSection');
+        const oldButtons = previewSection.querySelector('.button-group');
+        if (oldButtons) oldButtons.remove();
+        
+        const newButtons = document.createElement('div');
+        newButtons.className = 'button-group';
+        newButtons.innerHTML = `
+          <button class="btn btn-secondary" onclick="retakePhoto()">🔄 Ambil Ulang</button>
+          <button class="btn btn-secondary" onclick="backToHome()">🏠 Kembali ke Menu</button>
+        `;
+        previewSection.appendChild(newButtons);
+    }
+} catch (err) {
+    console.error('🔴 [14] Catch error:', err);
+    console.log('📋 Current page active:', document.querySelector('.page.active')?.id || 'NONE');
+    
+    showNotification('❌ Gagal mengunggah foto: ' + err.message, 'error');
+    showStatus('statusCamera', 'Error: ' + err.message, 'error');
+    
+    // Buat tombol untuk retry
+    const previewSection = document.getElementById('previewSection');
+    const oldButtons = previewSection.querySelector('.button-group');
+    if (oldButtons) oldButtons.remove();
+    
+    const newButtons = document.createElement('div');
+    newButtons.className = 'button-group';
+    newButtons.innerHTML = `
+      <button class="btn btn-secondary" onclick="retakePhoto()">🔄 Ambil Ulang</button>
+      <button class="btn btn-secondary" onclick="backToHome()">🏠 Kembali ke Menu</button>
+    `;
+    previewSection.appendChild(newButtons);
+}
+    console.log('🔴 [15] confirmAndUploadCamera finished - function completed normally');
+    console.log('📋 FINAL page active:', document.querySelector('.page.active')?.id || 'NONE');
+    
+    console.log('🔴 [16] If you see this but page went to landing, reload is from outside this function');
+}
+  // ========== FILE UPLOAD FUNCTIONS ==========
+  const uploadArea = document.querySelector('.upload-area');
+  const photoInput = document.getElementById('input-photo');
+
+  uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.classList.add('active');
+  });
+
+  uploadArea.addEventListener('dragleave', () => {
+    uploadArea.classList.remove('active');
+  });
+
+  uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.classList.remove('active');
+    const files = e.dataTransfer.files;
+    if (files.length) {
+      photoInput.files = files;
+      photoInput.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
+
+  photoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        document.getElementById('previewFile').src = event.target.result;
+        document.getElementById('previewFile').classList.add('show');
+      };
+      reader.readAsDataURL(file);
+      document.getElementById('btnUploadFile').disabled = false;
+      showStatus('statusFile', `📁 File: ${file.name}`, 'info');
+    }
+  });
+// GANTI FUNGSI uploadFile LAMA DENGAN INI
+async function uploadFile() {
+  const fileInput = document.getElementById('input-photo');
+  const file = fileInput.files[0];
+  const typeEl = document.querySelector('input[name="evidence-type-file"]:checked');
+  const btn = document.getElementById('btnUploadFile');
+  
+  if (!file || !typeEl) {
+    showNotification('❌ Pilih foto dan tipe evidence!', 'error');
+    return;
+  }
+
+  const fd = new FormData();
+  fd.append('photo', file);
+  fd.append('evidenceType', typeEl.value);
+  fd.append('description', document.getElementById('desc-file').value);
+  fd.append('username', getUsername());
+
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Sedang Memproses...';
+
+  try {
+    const response = await fetch('/process-photo', { method: 'POST', body: fd });
+    const data = await response.json();
+
+    if (data.status === 'OK') {
+      // Tampilkan Log
+      let logBox = document.getElementById('terminal-result');
+      if (!logBox) {
+          logBox = document.createElement('div');
+          logBox.id = 'terminal-result';
+          document.querySelector('#uploadPage .card').appendChild(logBox);
+      }
+      logBox.style.display = 'block';
+      logBox.style.cssText = `background:#000;color:#0f0;padding:15px;border-radius:8px;font-family:monospace;font-size:12px;white-space:pre-wrap;margin-top:15px;text-align:left;border:1px solid #333;max-height:300px;overflow-y:auto;`;
+      logBox.textContent = data.scan_details;
+
+      showNotification(`✅ BERHASIL!\n📍 Placemark: ${data.placemark}`, 'success', 10000);
+
+      // UBAH TOMBOL MENJADI INPUT BARU
+      btn.disabled = false;
+      btn.innerHTML = '🔄 Input Baru';
+      btn.className = 'btn btn-secondary';
+      btn.onclick = resetUploadFormFull; // Panggil fungsi reset di bawah
+
+      logBox.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      showNotification('⚠️ ' + data.error, 'error');
+      btn.disabled = false;
+      btn.innerHTML = 'Upload';
+    }
+  } catch (e) {
+    showNotification('❌ Gagal terhubung ke server', 'error');
+    btn.disabled = false;
+    btn.innerHTML = 'Upload';
+  }
+}
+
+// TAMBAHKAN FUNGSI INI (UNTUK RESET TAMPILAN)
+function resetUploadFormFull() {
+    const btn = document.getElementById('btnUploadFile');
+    const logBox = document.getElementById('terminal-result');
+    
+    // Bersihkan Gambar & Input
+    document.getElementById('previewFile').src = '';
+    document.getElementById('previewFile').classList.remove('show');
+    document.getElementById('input-photo').value = '';
+    document.getElementById('desc-file').value = '';
+    
+    // Reset Radio Buttons
+    document.querySelectorAll('input[name="evidence-type-file"]').forEach(r => r.checked = false);
+    
+    // Sembunyikan Log
+    if (logBox) logBox.style.display = 'none';
+    
+    // Kembalikan Tombol ke fungsi awal
+    btn.innerHTML = 'Upload';
+    btn.className = 'btn btn-primary';
+    btn.onclick = uploadFile;
+    
+    showStatus('statusFile', '📤 Pilih foto baru', 'info');
+}
+  // ========== KML FUNCTIONS ==========
+  async function loadKMLList() {
+    try {
+      const username = getUsername();
+      const res = await fetch(`/kml-list?username=${encodeURIComponent(username)}`);
+      const data = await res.json();
+      
+      const kmlList = document.getElementById('kmlList');
+      if (!data.kml_files || data.kml_files.length === 0) {
+        kmlList.innerHTML = '<p style="color: #6B7280; text-align: center;">Belum ada file KML</p>';
+        return;
+      }
+      
+      let html = '<div style="display: grid; gap: 10px;">';
+      data.kml_files.forEach(file => {
+        html += `
+          <div style="background: white; padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #065F46;">
+            <div>
+              <strong style="color: #065F46;">${file}</strong>
+              <p style="color: #6B7280; font-size: 0.85em; margin: 3px 0;">📍 KML File</p>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      kmlList.innerHTML = html;
+      
+      showStatus('statusKML', `📂 Total: ${data.kml_files.length} file KML`, 'info');
+    } catch (e) {
+      const kmlList = document.getElementById('kmlList');
+      kmlList.innerHTML = '<p style="color: #DC2626;">Error: ' + e.message + '</p>';
+      showStatus('statusKML', 'Error memuat daftar KML: ' + e.message, 'error');
+    }
+  }
+
+
+  async function uploadKML() {
+    const file = document.getElementById('kml-file').files[0];
+    if (!file) {
+      showNotification('❌ Pilih file KML dulu', 'error');
+      return;
+    }
+
+    if (!file.name.toLowerCase().endsWith('.kml')) {
+      showNotification('❌ File harus berformat KML', 'error');
+      return;
+    }
+
+    const fd = new FormData();
+    fd.append('kml', file);
+    fd.append('username', getUsername());
+
+    showStatus('statusKML', 'Sedang upload KML...', 'info');
+    
+    try {
+      const res = await fetch('/upload-kml', { method: 'POST', body: fd });
+      const data = await res.json();
+      
+      if (data.status === 'OK') {
+        showNotification(`✅ KML "${file.name}" berhasil diupload!`, 'success', 6000);
+        showStatus('statusKML', `✅ Upload Berhasil!\n📄 File: ${file.name}\n📍 Placemarks: ${data.placemarks || '?'}`, 'success');
+        
+        document.getElementById('kml-file').value = '';
+        
+        setTimeout(() => {
+          loadKMLList();
+        }, 1000);
+      } else {
+        showNotification(`⚠️ ${data.message}`, 'error');
+        showStatus('statusKML', data.message, 'error');
+      }
+    } catch (e) {
+      showNotification('❌ Error: ' + e.message, 'error');
+      showStatus('statusKML', 'Error: ' + e.message, 'error');
+    }
+  }
+
+  // ========== PAGE CLEANUP ==========
+  window.addEventListener('beforeunload', () => {
+    stopCamera();
+  });
+</script>
+
+</body>
+</html>
