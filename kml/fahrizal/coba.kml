@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <Document>
+    <name>coba.kml</name>
+    <StyleMap id="m_ylw-pushpin">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#s_ylw-pushpin</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#s_ylw-pushpin_hl</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="s_ylw-pushpin">
+      <IconStyle>
+        <scale>1.1</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+        </Icon>
+        <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+      </IconStyle>
+    </Style>
+    <Style id="s_ylw-pushpin_hl">
+      <IconStyle>
+        <scale>1.3</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+        </Icon>
+        <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>coba</name>
+      <open>1</open>
+      <LookAt>
+        <longitude>110.3507086804835</longitude>
+        <latitude>-7.339097740895059</latitude>
+        <altitude>0</altitude>
+        <heading>71.16876449744892</heading>
+        <tilt>36.40331329246321</tilt>
+        <range>394.7244487217616</range>
+        <gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+      </LookAt>
+      <styleUrl>#m_ylw-pushpin</styleUrl>
+      <Point>
+        <gx:drawOrder>1</gx:drawOrder>
+        <coordinates>110.3506699838763,-7.339043992091608,0</coordinates>
+      </Point>
+      <atom:link rel="app" href="https://www.google.com/earth/about/versions/#earth-pro" title="Google Earth Pro 7.3.6.10441"/>
+      <description>&lt;b&gt;Update Evidence (Upload)&lt;/b&gt;&lt;br&gt;&lt;img src="http://localhost:3000/uploads/photos/1771316537630_photo_2025-11-21_10-02-10.jpg" width="300"&gt;&lt;br&gt;&lt;b&gt;Koordinat:&lt;/b&gt; -7.339046, 110.350671&lt;br&gt;&lt;b&gt;Waktu:&lt;/b&gt; 17/2/2026, 15.22.23</description>
+    </Placemark>
+  </Document>
+</kml>
